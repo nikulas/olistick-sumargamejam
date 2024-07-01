@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtppiati15kc4"]
+
+[ext_resource type="Texture2D" uid="uid://bcvnbcn0vvrku" path="res://Assets/StickMan.png" id="1_fmyd1"]
+[ext_resource type="Script" path="res://StickPlayer_Controller.gd" id="1_oht5p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucpr6"]
+size = Vector2(33, 77)
+
+[node name="StickPlayer" type="Node2D"]
+position = Vector2(309, 86)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_oht5p")
+SPEED_CAP = 250
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_ucpr6")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(0, -4)
+texture = ExtResource("1_fmyd1")
