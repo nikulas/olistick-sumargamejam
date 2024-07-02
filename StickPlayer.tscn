@@ -359,9 +359,6 @@ animations = [{
 position = Vector2(-1, -17)
 script = ExtResource("1_oht5p")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 58)
-
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, -1.5)
 polygon = PackedVector2Array(-15, -16.5, -15, -37.5, -8, -37.5, 5, -37.5, 11, -37.5, 11, -16.5, 15, -2.5, 15, 38.5, -15, 38.5, -15, -2.5)

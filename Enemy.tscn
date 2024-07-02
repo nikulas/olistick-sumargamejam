@@ -1,18 +1,60 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5avkes4kvgv7"]
+[gd_scene load_steps=9 format=3 uid="uid://c5avkes4kvgv7"]
 
 [ext_resource type="Texture2D" uid="uid://bt3ibqd11wg0x" path="res://Assets/Enemy.png" id="1_6g78b"]
+[ext_resource type="Script" path="res://Enemy_AI.gd" id="1_ygt0r"]
+[ext_resource type="Texture2D" uid="uid://cdj4nyixf6ey5" path="res://Assets/enemy_spritesheet.png" id="3_6of42"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjnd2"]
 size = Vector2(83, 45)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcbbb"]
+size = Vector2(87, 47)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." groups=["Enemies"]]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdvu0"]
+atlas = ExtResource("3_6of42")
+region = Rect2(192, 0, 96, 96)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvp67"]
+atlas = ExtResource("3_6of42")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8407"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdvu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvp67")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="Node2D"]
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="." groups=["Enemies"]]
+script = ExtResource("1_ygt0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
 position = Vector2(0.5, -9.5)
 shape = SubResource("RectangleShape2D_wjnd2")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D2"]
+visible = false
 position = Vector2(0, -31)
 texture = ExtResource("1_6g78b")
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2/Area2D"]
+position = Vector2(0.5, -10.5)
+shape = SubResource("RectangleShape2D_hcbbb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D2"]
+position = Vector2(1, -28)
+sprite_frames = SubResource("SpriteFrames_r8407")
+animation = &"Walk"
+
+[connection signal="body_entered" from="CharacterBody2D2/Area2D" to="CharacterBody2D2" method="_on_area_2d_body_entered"]

@@ -7,12 +7,12 @@ size = Vector2(87, 8)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2, -24)
-texture = ExtResource("1_fy6ff")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Floor"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_243d6")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(2, -24)
+texture = ExtResource("1_fy6ff")

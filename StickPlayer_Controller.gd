@@ -126,12 +126,9 @@ func player_drift(direction):
 	if is_sprinting:	
 		if (direction * velocity.x) < 0:
 			is_drifting = true
-			print(is_drifting)
 		else:
 			is_drifting = false
-			print(is_drifting)
 	
-
 #function handling jump mechanics
 func player_jump(direction):
 	if is_sprinting:
@@ -185,8 +182,6 @@ func player_death():
 		_hurtbox.set_deferred("monitoring", false)
 		_hurtbox_collider.disabled = true
 		_animated_sprite.play("Death")
-		
-		
 		
 		velocity.x = 0
 		$DeathTimer.start(2)
