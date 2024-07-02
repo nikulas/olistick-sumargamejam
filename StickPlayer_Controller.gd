@@ -16,6 +16,7 @@ var is_sprintJumping = false
 var is_sprinting = false
 var is_vertJumping = false
 var is_jumping = false
+var is_drifting = false
 #----------- Player Variables -------------#
 const SPEED = 25.0
 var SPEED_CAP = 250
@@ -43,16 +44,17 @@ func _physics_process(delta):
 		
 	if is_on_floor():
 		is_vertJumping = false
+		is_sprintJumping = false
 		coyote_timed_out = false
 		is_jumping = false
 		
 	if velocity.y == 0 and is_on_floor() and health > 0:
 		is_movement_disabled = false
 		
-	
 	if !is_movement_disabled:
 		player_movement(direction)
 		if is_on_floor():
+			player_drift(direction)
 			player_jump(direction)
 		if not coyote_timed_out:
 			coyote_timing()
@@ -89,14 +91,18 @@ func player_movement(direction):
 				_animated_sprite.play("Walk")
 			else:
 				if $SoundNode/Timer.time_left <= 0:
-					$SoundNode/Walk.volume_db = -8
-					$SoundNode/Walk.play()
-					$SoundNode/Timer.start(0.165)
+					if !is_drifting: 
+						$SoundNode/Walk.volume_db = -8
+						$SoundNode/Walk.play()
+						$SoundNode/Timer.start(0.165)
+					else:
+						$SoundNode/Drift.play()
+						$SoundNode/Timer.start(0.05)
 				_animated_sprite.play("Run")
 		if not is_on_floor():
 			velocity.x += direction * SPEED/4
 		else:
-			velocity.x += direction * SPEED
+			velocity.x += direction * SPEED/1.5
 		velocity.x = clamp(velocity.x, -SPEED_CAP, SPEED_CAP)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED*3)
@@ -110,11 +116,21 @@ func player_movement(direction):
 func player_sprint():
 	if Input.is_action_pressed("Run"):
 		is_sprinting = true
-		if  is_on_floor():
+		if is_on_floor():
 				SPEED_CAP = 450
 	else:
 		is_sprinting = false
 		SPEED_CAP = move_toward(SPEED_CAP, 250, SPEED/2)	
+
+func player_drift(direction):
+	if is_sprinting:	
+		if (direction * velocity.x) < 0:
+			is_drifting = true
+			print(is_drifting)
+		else:
+			is_drifting = false
+			print(is_drifting)
+	
 
 #function handling jump mechanics
 func player_jump(direction):
@@ -201,6 +217,5 @@ func rand_direction():
 		return 1
 	else:
 		return -1
-
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dtppiati15kc4"]
+[gd_scene load_steps=52 format=3 uid="uid://dtppiati15kc4"]
 
 [ext_resource type="Script" path="res://StickPlayer_Controller.gd" id="1_oht5p"]
 [ext_resource type="Texture2D" uid="uid://ulosmd2r7lkk" path="res://Assets/StickManSpriteSheet.png" id="2_3pvtn"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://yvl8y8qa2i6q" path="res://Assets/Sounds/Jump2.wav" id="5_2okln"]
 [ext_resource type="AudioStream" uid="uid://cowkbe4decqjv" path="res://Assets/Sounds/TakeDamage.wav" id="6_8cmvc"]
 [ext_resource type="AudioStream" uid="uid://d34hnkljqsagm" path="res://Assets/Sounds/SprintJump.wav" id="6_lgfhx"]
+[ext_resource type="AudioStream" uid="uid://c4gs5nn212qsc" path="res://Assets/Sounds/55. Twirl.mp3" id="7_blnpq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx3t8"]
 atlas = ExtResource("2_3pvtn")
@@ -402,6 +403,9 @@ pitch_scale = 1.4
 
 [node name="TakeDamage" type="AudioStreamPlayer2D" parent="SoundNode"]
 stream = ExtResource("6_8cmvc")
+
+[node name="Drift" type="AudioStreamPlayer2D" parent="SoundNode"]
+stream = ExtResource("7_blnpq")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 one_shot = true
