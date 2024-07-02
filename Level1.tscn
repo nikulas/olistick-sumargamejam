@@ -15,6 +15,7 @@ position = Vector2(478, 147)
 position = Vector2(666, 264)
 
 [node name="Platforms" type="Node2D" parent="."]
+position = Vector2(1, 0)
 
 [node name="Platform" parent="Platforms" instance=ExtResource("2_ysrvf")]
 position = Vector2(584, 551)
@@ -56,13 +57,36 @@ position = Vector2(300, 426)
 position = Vector2(566, 365)
 
 [node name="Platform14" parent="Platforms" instance=ExtResource("2_ysrvf")]
-position = Vector2(460, 209)
+position = Vector2(460, 276)
 
-[node name="Node2D" parent="." instance=ExtResource("4_okclr")]
-position = Vector2(849, 471)
+[node name="Platform15" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1193, 551)
 
-[node name="Node2D2" parent="." instance=ExtResource("4_okclr")]
-position = Vector2(648, 495)
+[node name="Platform16" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1280, 551)
+
+[node name="Platform17" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1106, 551)
+
+[node name="Platform18" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1541, 551)
+
+[node name="Platform19" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1454, 551)
+
+[node name="Platform20" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1367, 551)
+
+[node name="Platform21" parent="Platforms" instance=ExtResource("2_ysrvf")]
+position = Vector2(1628, 551)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Node2D" parent="Enemies" instance=ExtResource("4_okclr")]
+position = Vector2(1185, 478)
+
+[node name="Node2D2" parent="Enemies" instance=ExtResource("4_okclr")]
+position = Vector2(846, 486)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_3jwfn")

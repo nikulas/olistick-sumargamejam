@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dtppiati15kc4"]
+[gd_scene load_steps=51 format=3 uid="uid://dtppiati15kc4"]
 
 [ext_resource type="Script" path="res://StickPlayer_Controller.gd" id="1_oht5p"]
 [ext_resource type="Texture2D" uid="uid://ulosmd2r7lkk" path="res://Assets/StickManSpriteSheet.png" id="2_3pvtn"]
@@ -39,17 +39,53 @@ region = Rect2(2208, 0, 96, 96)
 atlas = ExtResource("2_3pvtn")
 region = Rect2(2304, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x02ka"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_68gch"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3264, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vsgmr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bie5j"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3360, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_luoqr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ldyx"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3456, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njs54"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(3552, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6l2x"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(3648, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nccgp"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(3744, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7dcr"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(3840, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cdme"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(3936, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns073"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4032, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgwhl"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4128, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fymap"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4224, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n56c7"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4320, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toecy"]
 atlas = ExtResource("2_3pvtn")
@@ -176,17 +212,44 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x02ka")
+"texture": SubResource("AtlasTexture_68gch")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vsgmr")
+"texture": SubResource("AtlasTexture_bie5j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_luoqr")
+"texture": SubResource("AtlasTexture_1ldyx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njs54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n6l2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nccgp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7dcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cdme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns073")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sgwhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fymap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n56c7")
 }],
 "loop": true,
-"name": &"Dangle",
-"speed": 5.0
+"name": &"Death",
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -305,7 +368,7 @@ polygon = PackedVector2Array(-15, -16.5, -15, -37.5, -8, -37.5, 5, -37.5, 11, -3
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_ja34p")
-animation = &"Dangle"
+animation = &"Death"
 autoplay = "Idle"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -345,6 +408,9 @@ one_shot = true
 
 [node name="HurtTimer" type="Timer" parent="."]
 
+[node name="DeathTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

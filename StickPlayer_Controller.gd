@@ -7,56 +7,67 @@ extends CharacterBody2D
 
 
 
-var coyote_timed_out = false #flag that checks whether the coyote time ran out
+var coyote_timed_out = false #flag that checks whether the coyote timer ran out
 var is_movement_disabled = false
 var recent_direction_array = []
+var zoom = Vector2(1,1)
 #----------- Movement Flags -------------#
 var is_sprintJumping = false
 var is_sprinting = false
 var is_vertJumping = false
 var is_jumping = false
-#----------------------------------------#
+#----------- Player Variables -------------#
 const SPEED = 25.0
 var SPEED_CAP = 250
 const JUMP_VELOCITY = -500.0
+var health = 3
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	$Camera2D.set_zoom(zoom)
+
 func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
-	if recent_direction() != null:
-		direction = recent_direction()
-		#print(direction)
-	#print(direction_array)
+	if health <= 0:
+		zoom = zoom.move_toward(Vector2(2,2), 0.025)
+		$Camera2D.set_zoom(zoom)
+		
+	if direction_bias() != null:
+		direction = direction_bias()
+		
 	if not is_on_floor():
 		velocity.y += gravity*1.65 * delta
+		
 	if is_on_floor():
 		is_vertJumping = false
 		coyote_timed_out = false
 		is_jumping = false
-	
-	if velocity.y == 0 and is_on_floor():
+		
+	if velocity.y == 0 and is_on_floor() and health > 0:
 		is_movement_disabled = false
 		
+	
 	if !is_movement_disabled:
 		player_movement(direction)
-		
 		if is_on_floor():
 			player_jump(direction)
 		if not coyote_timed_out:
 			coyote_timing()
 		
 		player_sprint()
-			
+		
+	player_death()
+		
 	move_and_slide()
 	
-	if not $CoyoteTimer.is_stopped() and not is_on_floor() and not is_jumping:
+	if not $CoyoteTimer.is_stopped() and not is_on_floor() and not is_jumping :
 		player_jump(direction)
 	
 		
-func recent_direction():
+func direction_bias():
 	if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_right"):
 		if Input.is_action_just_pressed("ui_left"):
 			recent_direction_array.append(-1)
@@ -95,6 +106,16 @@ func player_movement(direction):
 			else:
 				_animated_sprite.play("Idle")
 
+#function handling player sprint
+func player_sprint():
+	if Input.is_action_pressed("Run"):
+		is_sprinting = true
+		if  is_on_floor():
+				SPEED_CAP = 450
+	else:
+		is_sprinting = false
+		SPEED_CAP = move_toward(SPEED_CAP, 250, SPEED/2)	
+
 #function handling jump mechanics
 func player_jump(direction):
 	if is_sprinting:
@@ -122,18 +143,11 @@ func player_jump(direction):
 		_animated_sprite.play("Jump")
 			
 func coyote_timing():
-	if not is_on_floor() and is_jumping == false and $CoyoteTimer.is_stopped():
-		$CoyoteTimer.start(0.2)
-		
-#function handling player sprint
-func player_sprint():
-	if Input.is_action_pressed("Run"):
-		is_sprinting = true
-		if  is_on_floor():
-				SPEED_CAP = 450
-	else:
-		is_sprinting = false
-		SPEED_CAP = move_toward(SPEED_CAP, 250, SPEED/4)	
+	if not is_on_floor() and not is_jumping and $CoyoteTimer.is_stopped():
+		$CoyoteTimer.start(0.1)
+
+func _on_coyote_timer_timeout():
+	coyote_timed_out = true
 
 #function handling entities entering the HurtBox collider
 func _on_area_2d_body_entered(body):#HurtBox Signal Function
@@ -141,12 +155,28 @@ func _on_area_2d_body_entered(body):#HurtBox Signal Function
 	
 	if body.is_in_group("Enemies"):
 		$SoundNode/TakeDamage.play()
+		health += -1
 		if direction == 0:
 			direction = rand_direction()
 		is_movement_disabled = true
 		velocity.x = -direction * 200
 		velocity.y = JUMP_VELOCITY/1.5
-		player_invincible_timer()
+		if health > 0:
+			player_invincible_timer()
+
+func player_death():
+	if health <= 0 and $DeathTimer.is_stopped():
+		_hurtbox.set_deferred("monitoring", false)
+		_hurtbox_collider.disabled = true
+		_animated_sprite.play("Death")
+		
+		
+		
+		velocity.x = 0
+		$DeathTimer.start(2)
+
+func _on_death_timer_timeout():
+	queue_free()
 
 #when an enemy touches the player disable the HurtBox and start a timer
 func player_invincible_timer():
@@ -173,6 +203,4 @@ func rand_direction():
 		return -1
 
 
-func _on_coyote_timer_timeout():
-	coyote_timed_out = true
 
