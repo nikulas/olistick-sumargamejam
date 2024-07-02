@@ -5,8 +5,6 @@ extends CharacterBody2D
 @onready var _hurtbox_collider = $HurtBox/HurtBox_Collider
 @onready var _timer = $HurtTimer
 
-
-
 var coyote_timed_out = false #flag that checks whether the coyote timer ran out
 var is_movement_disabled = false
 var recent_direction_array = []
@@ -31,9 +29,9 @@ func _ready():
 
 func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
-	
+	print(velocity.x)
 	if health <= 0:
-		zoom = zoom.move_toward(Vector2(2,2), 0.025)
+		zoom = zoom.move_toward(Vector2(2,2), 0.0155)
 		$Camera2D.set_zoom(zoom)
 		
 	if direction_bias() != null:
@@ -41,13 +39,18 @@ func _physics_process(delta):
 		
 	if not is_on_floor():
 		velocity.y += gravity*1.65 * delta
+		jump_buffer()
+		
+	if is_on_floor() and $JumpTimer.time_left > 0:
+			player_jump(direction)
 		
 	if is_on_floor():
 		is_vertJumping = false
 		is_sprintJumping = false
 		coyote_timed_out = false
 		is_jumping = false
-		
+		$JumpTimer.stop()
+	
 	if velocity.y == 0 and is_on_floor() and health > 0:
 		is_movement_disabled = false
 		
@@ -55,18 +58,21 @@ func _physics_process(delta):
 		player_movement(direction)
 		if is_on_floor():
 			player_drift(direction)
-			player_jump(direction)
+			if Input.is_action_just_pressed("Jump"):
+				player_jump(direction)
 		if not coyote_timed_out:
 			coyote_timing()
 		
 		player_sprint()
+	print($JumpTimer.time_left)
 		
 	player_death()
 		
 	move_and_slide()
 	
 	if not $CoyoteTimer.is_stopped() and not is_on_floor() and not is_jumping :
-		player_jump(direction)
+		if Input.is_action_just_pressed("Jump"):
+			player_jump(direction)
 	
 		
 func direction_bias():
@@ -132,24 +138,23 @@ func player_drift(direction):
 #function handling jump mechanics
 func player_jump(direction):
 	if is_sprinting:
-		if Input.is_action_just_pressed("Jump"):
-			is_jumping = true
-			is_sprintJumping = true
-			if direction != 0 and abs(velocity.x) >= 100:
-				velocity.y = JUMP_VELOCITY
-				if direction == 1:
-					velocity.x += 200
-					_animated_sprite.play("SprintJump")
-				elif direction == -1:
-					velocity.x -= 200
-					_animated_sprite.play_backwards("SprintJump")
-			else:
-				velocity.y = JUMP_VELOCITY-175
-				is_vertJumping = true
-				_animated_sprite.play("VertJump")
-			$SoundNode/SprintJump.play()
+		is_jumping = true
+		is_sprintJumping = true
+		if direction != 0 and abs(velocity.x) >= 100:
+			velocity.y = JUMP_VELOCITY
+			if direction == 1:
+				velocity.x += 200
+				_animated_sprite.play("SprintJump")
+			elif direction == -1:
+				velocity.x -= 200
+				_animated_sprite.play_backwards("SprintJump")
+		else:
+			velocity.y = JUMP_VELOCITY-175
+			is_vertJumping = true
+			_animated_sprite.play("VertJump")
+		$SoundNode/SprintJump.play()
 				
-	elif Input.is_action_just_pressed("Jump"):
+	else:
 		is_jumping = true
 		$SoundNode/Jump.play()
 		velocity.y = JUMP_VELOCITY
@@ -182,7 +187,7 @@ func player_death():
 		_hurtbox.set_deferred("monitoring", false)
 		_hurtbox_collider.disabled = true
 		_animated_sprite.play("Death")
-		
+		$SoundNode/Death.play()
 		velocity.x = 0
 		$DeathTimer.start(2)
 
@@ -203,6 +208,10 @@ func player_invincible_timer():
 func _on_timer_timeout():
 	_hurtbox.set_deferred("monitoring", true)
 	_hurtbox_collider.disabled = false
+	
+func jump_buffer():
+	if Input.is_action_just_pressed("Jump") and $JumpTimer.is_stopped() and $CoyoteTimer.is_stopped():
+		$JumpTimer.start(0.1)
 	
 #generating a random float that returns either 1 or -1. giving me a random 
 #axis that i can knock the player back with. direction == 0 e.g not moving	

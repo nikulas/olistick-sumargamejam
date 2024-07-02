@@ -17,10 +17,6 @@ func _physics_process(delta):
 	sprite_flip(direction)
 	move_and_slide()
 	
-
-
-
-
 func enemy_walk(direction):
 	velocity.x = direction * SPEED
 
@@ -34,3 +30,4 @@ func sprite_flip(direction):
 		$AnimatedSprite2D.flip_h = false
 	else:
 		$AnimatedSprite2D.flip_h = true
+

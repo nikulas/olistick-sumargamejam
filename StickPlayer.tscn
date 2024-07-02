@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dtppiati15kc4"]
+[gd_scene load_steps=53 format=3 uid="uid://dtppiati15kc4"]
 
 [ext_resource type="Script" path="res://StickPlayer_Controller.gd" id="1_oht5p"]
 [ext_resource type="Texture2D" uid="uid://ulosmd2r7lkk" path="res://Assets/StickManSpriteSheet.png" id="2_3pvtn"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cowkbe4decqjv" path="res://Assets/Sounds/TakeDamage.wav" id="6_8cmvc"]
 [ext_resource type="AudioStream" uid="uid://d34hnkljqsagm" path="res://Assets/Sounds/SprintJump.wav" id="6_lgfhx"]
 [ext_resource type="AudioStream" uid="uid://c4gs5nn212qsc" path="res://Assets/Sounds/55. Twirl.mp3" id="7_blnpq"]
+[ext_resource type="AudioStream" uid="uid://6fvpymwfdcyt" path="res://Assets/Sounds/Death.wav" id="8_g16jf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx3t8"]
 atlas = ExtResource("2_3pvtn")
@@ -355,7 +356,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(-1, -17)
 script = ExtResource("1_oht5p")
 
@@ -368,8 +369,6 @@ position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_ja34p")
 animation = &"Death"
 autoplay = "Idle"
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="HurtBox" type="Area2D" parent="."]
 
@@ -404,12 +403,18 @@ stream = ExtResource("6_8cmvc")
 [node name="Drift" type="AudioStreamPlayer2D" parent="SoundNode"]
 stream = ExtResource("7_blnpq")
 
+[node name="Death" type="AudioStreamPlayer2D" parent="SoundNode"]
+stream = ExtResource("8_g16jf")
+
 [node name="CoyoteTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="HurtTimer" type="Timer" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="."]
+
+[node name="JumpTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
