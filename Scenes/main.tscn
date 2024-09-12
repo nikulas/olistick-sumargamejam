@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c61bm6qnomia1"]
+
+[ext_resource type="PackedScene" uid="uid://dtd3qqelnucs3" path="res://Scenes/Level1.tscn" id="1_lrcis"]
+[ext_resource type="PackedScene" uid="uid://dbdd82huj4t3b" path="res://Scenes/health.tscn" id="2_wx1f8"]
+[ext_resource type="PackedScene" uid="uid://chmro6xqaor20" path="res://Scenes/player_data.tscn" id="3_dg20q"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Level" parent="." instance=ExtResource("1_lrcis")]
+
+[node name="Health" parent="." instance=ExtResource("2_wx1f8")]
+
+[node name="PlayerData" parent="." instance=ExtResource("3_dg20q")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://dtppiati15kc4"]
+[gd_scene load_steps=59 format=3 uid="uid://dtppiati15kc4"]
 
 [ext_resource type="Script" path="res://StickPlayer_Controller.gd" id="1_oht5p"]
 [ext_resource type="Texture2D" uid="uid://ulosmd2r7lkk" path="res://Assets/StickManSpriteSheet.png" id="2_3pvtn"]
@@ -41,53 +41,65 @@ region = Rect2(2208, 0, 96, 96)
 atlas = ExtResource("2_3pvtn")
 region = Rect2(2304, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_68gch"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dql3e"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3264, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bie5j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8adv"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3360, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ldyx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y40a"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3456, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_njs54"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nokfa"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3552, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6l2x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cffum"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3648, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nccgp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yut2i"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3744, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p7dcr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhfwy"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3840, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8cdme"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w50h3"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(3936, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ns073"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2a37"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(4032, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sgwhl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jagqk"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(4128, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fymap"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnkcu"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(4224, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n56c7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_570qk"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(4320, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4sr5"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4416, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akrwc"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4512, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptg7i"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4608, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toecy"]
 atlas = ExtResource("2_3pvtn")
@@ -124,6 +136,18 @@ region = Rect2(1440, 0, 96, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_s200p"]
 atlas = ExtResource("2_3pvtn")
 region = Rect2(1536, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmfut"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4312, 0, 98, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8ldr"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4508, 0, 98, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fedrr"]
+atlas = ExtResource("2_3pvtn")
+region = Rect2(4606, 0, 98, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dutcd"]
 atlas = ExtResource("2_3pvtn")
@@ -214,44 +238,53 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_68gch")
+"texture": SubResource("AtlasTexture_dql3e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bie5j")
+"texture": SubResource("AtlasTexture_p8adv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1ldyx")
+"texture": SubResource("AtlasTexture_8y40a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_njs54")
+"texture": SubResource("AtlasTexture_nokfa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n6l2x")
+"texture": SubResource("AtlasTexture_cffum")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nccgp")
+"texture": SubResource("AtlasTexture_yut2i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p7dcr")
+"texture": SubResource("AtlasTexture_xhfwy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8cdme")
+"texture": SubResource("AtlasTexture_w50h3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ns073")
+"texture": SubResource("AtlasTexture_f2a37")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sgwhl")
+"texture": SubResource("AtlasTexture_jagqk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fymap")
+"texture": SubResource("AtlasTexture_cnkcu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n56c7")
+"texture": SubResource("AtlasTexture_570qk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r4sr5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akrwc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptg7i")
 }],
 "loop": true,
 "name": &"Death",
-"speed": 6.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -271,7 +304,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -292,6 +325,20 @@ animations = [{
 "loop": false,
 "name": &"Jump",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmfut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8ldr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fedrr")
+}],
+"loop": true,
+"name": &"Punch",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -336,7 +383,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"VertJump",
-"speed": 18.0
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -357,8 +404,11 @@ animations = [{
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
-position = Vector2(-1, -17)
+position = Vector2(-1, -19)
 script = ExtResource("1_oht5p")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, -1.5)
@@ -367,7 +417,7 @@ polygon = PackedVector2Array(-15, -16.5, -15, -37.5, -8, -37.5, 5, -37.5, 11, -3
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_ja34p")
-animation = &"Death"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -376,10 +426,7 @@ autoplay = "Idle"
 position = Vector2(-1, -1.5)
 polygon = PackedVector2Array(-16, -30.5, -15, -38.5, -8, -39.5, 7, -39.5, 13, -38.5, 14, -29.5, 14, -16.5, 18, -2.5, 18, 38.5, -16, 38.5)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-
-[node name="SoundNode" type="Node" parent="."]
+[node name="SoundNode" type="Node2D" parent="."]
 
 [node name="Timer" type="Timer" parent="SoundNode"]
 one_shot = true
@@ -406,17 +453,20 @@ stream = ExtResource("7_blnpq")
 [node name="Death" type="AudioStreamPlayer2D" parent="SoundNode"]
 stream = ExtResource("8_g16jf")
 
-[node name="CoyoteTimer" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="Timers"]
+
+[node name="JumpTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="HurtTimer" type="Timer" parent="."]
+[node name="HurtTimer" type="Timer" parent="Timers"]
 
-[node name="DeathTimer" type="Timer" parent="."]
-
-[node name="JumpTimer" type="Timer" parent="."]
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
 one_shot = true
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_area_2d_body_entered"]
-[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
-[connection signal="timeout" from="HurtTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Timers/DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Timers/JumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="Timers/HurtTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbdd82huj4t3b"]
+
+[ext_resource type="Script" path="res://HealthUI.gd" id="1_ejnoo"]
+[ext_resource type="Texture2D" uid="uid://bofmx2p6s5ert" path="res://Assets/health_spritesheet.png" id="2_jk1k6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8inwt"]
+atlas = ExtResource("2_jk1k6")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yooyk"]
+atlas = ExtResource("2_jk1k6")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcst1"]
+atlas = ExtResource("2_jk1k6")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hytaj"]
+atlas = ExtResource("2_jk1k6")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tjj3g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8inwt")
+}],
+"loop": true,
+"name": &"FullHeart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yooyk")
+}],
+"loop": true,
+"name": &"NoHeart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcst1")
+}],
+"loop": true,
+"name": &"OneHeart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hytaj")
+}],
+"loop": true,
+"name": &"TwoHeart",
+"speed": 5.0
+}]
+
+[node name="Health" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ejnoo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(48, 24)
+sprite_frames = SubResource("SpriteFrames_tjj3g")
+animation = &"FullHeart"
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.031
+anchor_bottom = 0.032
+offset_right = 0.32
+offset_bottom = -0.0400009

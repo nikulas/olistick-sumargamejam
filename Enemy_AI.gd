@@ -22,12 +22,13 @@ func enemy_walk(direction):
 
 
 func _on_area_2d_body_entered(body):
-	if body.is_in_group("Wall"):
-		direction = -(direction)
+	direction = -(direction)
 
 func sprite_flip(direction):
 	if direction == -1:
 		$AnimatedSprite2D.flip_h = false
 	else:
 		$AnimatedSprite2D.flip_h = true
-
+		
+func get_enemy_velocity():
+	return velocity.x

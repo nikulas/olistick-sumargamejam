@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtd3qqelnucs3"]
+
+[ext_resource type="PackedScene" uid="uid://dtppiati15kc4" path="res://Scenes/StickPlayer.tscn" id="2_c57hr"]
+[ext_resource type="PackedScene" uid="uid://drydg6sxbug6n" path="res://Scenes/StickPad.tscn" id="4_0kip7"]
+[ext_resource type="PackedScene" uid="uid://c5avkes4kvgv7" path="res://Scenes/Enemy.tscn" id="5_sf3bh"]
+[ext_resource type="AudioStream" uid="uid://y5me3isfcx3g" path="res://Assets/Sounds/SMSBC.ogg" id="6_3mo43"]
+[ext_resource type="PackedScene" uid="uid://ci1o6j1nesrqd" path="res://Scenes/Wall.tscn" id="7_xr50b"]
+
+[node name="Level" type="Node2D"]
+
+[node name="StickPlayer" parent="." instance=ExtResource("2_c57hr")]
+position = Vector2(426, 495)
+
+[node name="Platforms" type="Node2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="Platform" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(584, 551)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(671, 551)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(497, 551)
+
+[node name="Platform4" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(932, 551)
+
+[node name="Platform5" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(845, 551)
+
+[node name="Platform6" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(758, 551)
+
+[node name="Platform7" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(410, 551)
+
+[node name="Platform8" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(323, 551)
+
+[node name="Platform9" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(1019, 551)
+
+[node name="Platform10" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(236, 551)
+
+[node name="Platform11" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(149, 551)
+
+[node name="Platform12" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(300, 426)
+
+[node name="Platform13" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(703, 505)
+
+[node name="Platform14" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(445, 301)
+
+[node name="Platform15" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(1193, 551)
+
+[node name="Platform16" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(1280, 551)
+
+[node name="Platform17" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(1106, 551)
+
+[node name="Platform25" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(2150, 551)
+
+[node name="Platform26" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(2063, 551)
+
+[node name="Platform27" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(1976, 551)
+
+[node name="Platform28" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(2237, 551)
+
+[node name="Platform29" parent="Platforms" instance=ExtResource("4_0kip7")]
+position = Vector2(660, 279)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Node2D" parent="Enemies" instance=ExtResource("5_sf3bh")]
+position = Vector2(1184, 426)
+
+[node name="Node2D2" parent="Enemies" instance=ExtResource("5_sf3bh")]
+position = Vector2(851, 426)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_3mo43")
+volume_db = -27.429
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("7_xr50b")]
+position = Vector2(1054, 506)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("7_xr50b")]
+position = Vector2(1338, 514)
+
+[node name="Wall3" parent="Walls" instance=ExtResource("7_xr50b")]
+position = Vector2(1611, 514)
+
+[node name="Wall4" parent="Walls" instance=ExtResource("7_xr50b")]
+position = Vector2(1899, 514)
+
+[node name="Wall5" parent="Walls" instance=ExtResource("7_xr50b")]
+position = Vector2(121, 508)
