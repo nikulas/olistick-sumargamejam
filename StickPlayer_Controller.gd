@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var _hurtbox : Area2D = $HurtBox
 @onready var _hurtbox_collider : CollisionPolygon2D = $HurtBox/HurtBox_Collider
 @onready var _timer : Timer = $Timers/HurtTimer
+@onready var _on_top_box = $OnTopBox
 
 var coyote_timed_out = false #flag that checks whether the coyote timer ran out
 var is_movement_disabled = false
@@ -30,7 +31,7 @@ const DAMAGE_JUMP_VELOCITY = JUMP_VELOCITY / 1.5
 
 #---- GRAVITY
 const GRAVITY_MULTIPLIER: float = 1.65
-
+var enemy_velocity = 0
 var SPEED_CAP = SPEED_CAP_NORMAL
 var hor_jump_counter = 0
 
@@ -38,16 +39,28 @@ var hor_jump_counter = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
+	PlayerData.health = 3
 	$Camera2D.set_zoom(zoom)
 
 func _physics_process(delta):
+	print(velocity)
+	print(enemy_velocity)
+
+	var platform_found = false;
+
+	for body in _on_top_box.get_overlapping_bodies():
+		if body.has_method("get_enemy_velocity"):
+			platform_found = true;
+			enemy_velocity = body.get_enemy_velocity()
+
+	if !platform_found:
+		enemy_velocity = 0
+		
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
 	if PlayerData.health <= 0:
 		zoom = zoom.move_toward(Vector2(2,2), 0.0155)
 		$Camera2D.set_zoom(zoom)
-	if hor_jump_counter == 3:
-		hor_jump_counter = 0
 	
 	if direction_bias() != null:
 		direction = direction_bias()
@@ -134,7 +147,7 @@ func player_movement(direction):
 						$SoundNode/Drift.play()
 						$SoundNode/Timer.start(0.05)
 				_animated_sprite.play("Run")
-		if not is_on_floor():
+		if !is_on_floor():
 			velocity.x += direction * SPEED/4
 		else:
 			velocity.x += direction * SPEED/1.5
@@ -173,6 +186,7 @@ func player_jump(direction):
 		if direction != 0 and abs(velocity.x) > 100:
 			is_sprintJumping = true
 			velocity.y += JUMP_VELOCITY
+			velocity.x += -(enemy_velocity)
 			if velocity.x < 0:
 				_animated_sprite.play_backwards("SprintJump")
 			else:
@@ -180,16 +194,18 @@ func player_jump(direction):
 		else:
 			is_horizontalJumping = true
 			velocity.y = JUMP_VELOCITY_HORIZONTAL_JUMP
+			velocity.x += -(enemy_velocity)
 			_animated_sprite.play("VertJump")
 		$SoundNode/SprintJump.play()
 		
 	else:
 		$SoundNode/Jump.play()
 		velocity.y = JUMP_VELOCITY
+		velocity.x += -(enemy_velocity)
 		_animated_sprite.play("Jump")
 			
 func coyote_timing():
-	if not is_on_floor() and not is_jumping and $Timers/CoyoteTimer.is_stopped():
+	if !is_on_floor() and !is_jumping and $Timers/CoyoteTimer.is_stopped():
 		$Timers/CoyoteTimer.start(0.1)
 		
 
@@ -201,15 +217,7 @@ func _on_area_2d_body_entered(body):#HurtBox Signal Function
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
 	if body.is_in_group("Enemies"):
-		$SoundNode/TakeDamage.play()
-		PlayerData.set_health(PlayerData.health - 1)
-		if direction == 0:
-			direction = rand_direction()
-		is_movement_disabled = true
-		velocity.x = -KNOCKBACK_VELOCITY
-		velocity.y = DAMAGE_JUMP_VELOCITY
-		if PlayerData.health > 0:
-			player_invincible_timer()
+		take_damage(direction)
 	if body.is_in_group("OneWayPlatform"):
 		print("Onewaygo")
 
@@ -223,7 +231,19 @@ func player_death():
 		$Timers/DeathTimer.start(2)
 
 func _on_death_timer_timeout():
-	queue_free()
+	get_tree().reload_current_scene()
+
+func take_damage(direction):
+	$SoundNode/TakeDamage.play()
+	PlayerData.set_health(PlayerData.health - 1)
+	if direction == 0:
+		direction = rand_direction()
+	is_movement_disabled = true
+	velocity.x = -KNOCKBACK_VELOCITY
+	velocity.y = DAMAGE_JUMP_VELOCITY
+	if PlayerData.health > 0:
+		player_invincible_timer()
+
 
 #when an enemy touches the player disable the HurtBox and start a timer
 func player_invincible_timer():
@@ -256,4 +276,14 @@ func rand_direction() -> int:
 func get_camera_loc():
 	return $Camera2D.global_position
 	
+
+func _on_death_zone_area_entered(area:Area2D) -> void:
+	PlayerData.health = 1;
+	var direction = Input.get_axis("ui_left", "ui_right")
+	take_damage(direction)
+	$SoundNode/Oof.play()
+	$Timers/ReloadTimer.start(1)
 	
+func _on_reload_timer_timeout() -> void:
+	if($Timers/ReloadTimer.is_stopped()):
+		get_tree().reload_current_scene()

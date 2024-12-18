@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dtppiati15kc4"]
+[gd_scene load_steps=61 format=3 uid="uid://dtppiati15kc4"]
 
 [ext_resource type="Script" path="res://StickPlayer_Controller.gd" id="1_oht5p"]
 [ext_resource type="Texture2D" uid="uid://ulosmd2r7lkk" path="res://Assets/StickManSpriteSheet.png" id="2_3pvtn"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://d34hnkljqsagm" path="res://Assets/Sounds/SprintJump.wav" id="6_lgfhx"]
 [ext_resource type="AudioStream" uid="uid://c4gs5nn212qsc" path="res://Assets/Sounds/55. Twirl.mp3" id="7_blnpq"]
 [ext_resource type="AudioStream" uid="uid://6fvpymwfdcyt" path="res://Assets/Sounds/Death.wav" id="8_g16jf"]
+[ext_resource type="AudioStream" uid="uid://gqhpxrxbyfq3" path="res://Assets/Sounds/Roblox - Oof Death (Sound Effect).mp3" id="9_r2m0q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx3t8"]
 atlas = ExtResource("2_3pvtn")
@@ -403,6 +404,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5kq28"]
+size = Vector2(34, 0.477903)
+
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(-1, -19)
 script = ExtResource("1_oht5p")
@@ -419,6 +423,13 @@ position = Vector2(-1, -4)
 sprite_frames = SubResource("SpriteFrames_ja34p")
 animation = &"Idle"
 autoplay = "Idle"
+
+[node name="OnTopBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OnTopBox"]
+position = Vector2(0, 39)
+scale = Vector2(1, 4.185)
+shape = SubResource("RectangleShape2D_5kq28")
 
 [node name="HurtBox" type="Area2D" parent="."]
 
@@ -453,6 +464,9 @@ stream = ExtResource("7_blnpq")
 [node name="Death" type="AudioStreamPlayer2D" parent="SoundNode"]
 stream = ExtResource("8_g16jf")
 
+[node name="Oof" type="AudioStreamPlayer2D" parent="SoundNode"]
+stream = ExtResource("9_r2m0q")
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="DeathTimer" type="Timer" parent="Timers"]
@@ -465,8 +479,14 @@ one_shot = true
 [node name="CoyoteTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="ReloadTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[connection signal="area_entered" from="OnTopBox" to="." method="_on_on_top_box_area_entered"]
+[connection signal="body_entered" from="OnTopBox" to="." method="_on_on_top_box_body_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Timers/JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/HurtTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timers/CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="Timers/ReloadTimer" to="." method="_on_reload_timer_timeout"]

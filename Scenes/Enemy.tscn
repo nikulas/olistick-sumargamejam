@@ -34,28 +34,29 @@ size = Vector2(87, 47)
 
 [node name="Enemy" type="Node2D"]
 
-[node name="CharacterBody2D2" type="CharacterBody2D" parent="." groups=["Enemies"]]
+[node name="Enemy" type="CharacterBody2D" parent="." groups=["Enemies"]]
+position = Vector2(1, 0)
 script = ExtResource("1_ygt0r")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
 position = Vector2(1, -28)
 sprite_frames = SubResource("SpriteFrames_r8407")
 animation = &"Walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 position = Vector2(0.5, -10.5)
 shape = SubResource("RectangleShape2D_wjnd2")
 
-[node name="Area2D" type="Area2D" parent="CharacterBody2D2" groups=["Enemies"]]
+[node name="Area2D" type="Area2D" parent="Enemy" groups=["Enemies"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
 position = Vector2(0.5, -10.5)
 shape = SubResource("RectangleShape2D_hcbbb")
 
-[node name="Sound" type="Node2D" parent="CharacterBody2D2"]
+[node name="Sound" type="Node2D" parent="Enemy"]
 
-[node name="CatNoise" type="AudioStreamPlayer2D" parent="CharacterBody2D2/Sound"]
+[node name="CatNoise" type="AudioStreamPlayer2D" parent="Enemy/Sound"]
 stream = ExtResource("4_jjty6")
 
-[connection signal="body_entered" from="CharacterBody2D2/Area2D" to="CharacterBody2D2" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D2/Area2D" to="CharacterBody2D2" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Enemy/Area2D" to="Enemy" method="_on_area_2d_body_exited"]
