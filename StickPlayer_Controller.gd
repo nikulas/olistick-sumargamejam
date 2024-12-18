@@ -31,7 +31,7 @@ const DAMAGE_JUMP_VELOCITY = JUMP_VELOCITY / 1.5
 
 #---- GRAVITY
 const GRAVITY_MULTIPLIER: float = 1.65
-var enemy_velocity = 0
+var other_velocity = 0
 var SPEED_CAP = SPEED_CAP_NORMAL
 var hor_jump_counter = 0
 
@@ -44,17 +44,17 @@ func _ready():
 
 func _physics_process(delta):
 	print(velocity)
-	print(enemy_velocity)
+	print(other_velocity)
 
 	var platform_found = false;
 
 	for body in _on_top_box.get_overlapping_bodies():
-		if body.has_method("get_enemy_velocity"):
+		if body.has_method("get_velocity_x"):
 			platform_found = true;
-			enemy_velocity = body.get_enemy_velocity()
+			other_velocity = body.get_velocity_x()
 
 	if !platform_found:
-		enemy_velocity = 0
+		other_velocity = 0
 		
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
@@ -186,7 +186,7 @@ func player_jump(direction):
 		if direction != 0 and abs(velocity.x) > 100:
 			is_sprintJumping = true
 			velocity.y += JUMP_VELOCITY
-			velocity.x += -(enemy_velocity)
+			velocity.x += -(other_velocity)
 			if velocity.x < 0:
 				_animated_sprite.play_backwards("SprintJump")
 			else:
@@ -194,14 +194,14 @@ func player_jump(direction):
 		else:
 			is_horizontalJumping = true
 			velocity.y = JUMP_VELOCITY_HORIZONTAL_JUMP
-			velocity.x += -(enemy_velocity)
+			velocity.x += -(other_velocity)
 			_animated_sprite.play("VertJump")
 		$SoundNode/SprintJump.play()
 		
 	else:
 		$SoundNode/Jump.play()
 		velocity.y = JUMP_VELOCITY
-		velocity.x += -(enemy_velocity)
+		velocity.x += -(other_velocity)
 		_animated_sprite.play("Jump")
 			
 func coyote_timing():

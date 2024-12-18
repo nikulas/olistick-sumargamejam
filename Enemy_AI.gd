@@ -30,5 +30,5 @@ func sprite_flip(direction):
 	else:
 		$AnimatedSprite2D.flip_h = true
 		
-func get_enemy_velocity():
+func get_velocity_x():
 	return velocity.x
